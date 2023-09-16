@@ -9,20 +9,65 @@ class mainScreen extends StatefulWidget {
 }
 
 class _mainScreenState extends State<mainScreen> {
-  // Define a function that calls the schedule function when the button is pressed
-  void _onPressed() {
-    schedule();
+  List<List<SchoolSubject>>? parsedDaySchedule;
+
+  @override
+  void initState() {
+    super.initState();
+    parsedDaySchedule = parseSubjects(daySchedule);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      // Use a RaisedButton widget to create a simple button
-      child: ElevatedButton(
-        // Set the text of the button to 'Schedule'
-        child: Text('Schedule'),
-        // Set the onPressed property to the _onPressed function
-        onPressed: _onPressed,
+    print('here');
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Day Schedule'),
+      ),
+      body: PageView.builder(
+        itemCount: parsedDaySchedule?.length ?? 0,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Text([
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday'
+              ][index]),
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: parsedDaySchedule?[index].length ?? 0,
+                  itemBuilder: (context, subjectIndex) {
+                    return ListTile(
+                      title: Text(
+                          parsedDaySchedule?[index][subjectIndex].className ??
+                              ''),
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(parsedDaySchedule?[index]
+                                          [subjectIndex]
+                                      .className ??
+                                  ''),
+                              content: Text(
+                                  'Room: ${parsedDaySchedule?[index][subjectIndex].roomNumber ?? ''}\nTeacher: ${parsedDaySchedule?[index][subjectIndex].teacherName ?? ''}\nClass Number: ${parsedDaySchedule?[index][subjectIndex].classNumber ?? ''}'),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

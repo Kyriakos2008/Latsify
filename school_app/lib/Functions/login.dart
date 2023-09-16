@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:requests/requests.dart';
 
@@ -15,7 +14,7 @@ login(username, password) async {
   var res = await Requests.post('http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php', body: form,);
 
   print(res.statusCode);
-  print(res.body);
+  //print(res.body);
 
   String text = 'ΛΑΘΟΣ ΚΩΔΙΚΟΣ - ΔΟΚΙΜΑΣΤΕ ΞΑΝΑ';
 
