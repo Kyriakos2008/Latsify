@@ -1,17 +1,39 @@
 import 'package:html/parser.dart' as parser;
 import 'package:requests/requests.dart';
+// ignore: unused_import
+import 'package:school_app/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 bool passwordCorrect = true;
 
-
 //var url = 'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php';
 login(username, password) async {
-  var form = <String, String>{
-    'username': username,
-    'password': password,
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  String? nowUsername;
+  String? nowPassword;
+
+  if (prefs.getString('username') != null &&
+      prefs.getString('username') != 'none') {
+    nowUsername = prefs.getString('username');
+    nowPassword = prefs.getString('password');
+  } else {
+    nowUsername = username;
+    nowPassword = password;
+  }
+
+  var form = <String?, String?>{
+    'username': nowUsername,
+    'password': nowPassword,
   };
 
-  var res = await Requests.post('http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php', body: form,);
+  // await storage.write(key: 'username', value: username);
+  // await storage.write(key: 'password', value: password);
+
+  var res = await Requests.post(
+    'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php',
+    body: form,
+  );
 
   print(res.statusCode);
   //print(res.body);
@@ -31,8 +53,10 @@ login(username, password) async {
     // Print the number of elements found
     print('Found ${elements.length} elements with the text "$text"');
     if (elements.length > 0) {
+      print('password incorrect');
       passwordCorrect = false;
     } else {
+      print('password correct');
       passwordCorrect = true;
     }
     print(passwordCorrect);

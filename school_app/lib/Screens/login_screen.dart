@@ -3,6 +3,9 @@ import 'package:flutter/rendering.dart';
 import 'package:school_app/Functions/login.dart';
 import 'package:school_app/Functions/schedule.dart';
 import 'package:school_app/Screens/main_screen.dart';
+// ignore: unused_import
+import 'package:school_app/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -28,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _login() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_formKey.currentState!.validate()) {
       // Perform login logic here
 
@@ -39,6 +43,11 @@ class _LoginPageState extends State<LoginPage> {
       if (correct == true) {
         print('sosto');
         await schedule();
+        if (prefs.getString('username') == null) {
+          prefs.setString('username', '${_usernameController.text}');
+          prefs.setString('password', '${_passwordController.text}');
+        }
+        prefs.setBool('firstLogin', false);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const mainScreen()),
@@ -54,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Flutter Login Screen'),
       ),
       body: Padding(
