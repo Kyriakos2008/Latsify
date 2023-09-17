@@ -19,53 +19,11 @@ class _mainScreenState extends State<mainScreen> {
     parsedDaySchedule = parseSubjects(daySchedule);
   }
 
-  void logOut() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('firstLogin', true);
-    prefs.remove('username');
-    prefs.remove('password');
-    daySchedule.clear();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
-    );
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          //automaticallyImplyLeading: false,
-          title: Text(
-            'Welcome',
-            style: TextStyle(fontSize: 25),
-          )),
-      drawer: Container(
-        width: MediaQuery.of(context).size.width * 0.6,
-        child: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.15,
-                child: DrawerHeader(
-                  child: Text('Alfa Version'),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Text('Log Out'),
-                onTap: () {
-                  logOut();
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      
       body: PageView.builder(
         itemCount: parsedDaySchedule?.length ?? 0,
         itemBuilder: (context, index) {
@@ -107,7 +65,7 @@ class _mainScreenState extends State<mainScreen> {
                                         .className ??
                                     ''),
                                 content: Text(
-                                  'Room: ${parsedDaySchedule?[index][subjectIndex].roomNumber ?? ''}\nTeacher: ${parsedDaySchedule?[index][subjectIndex].teacherName ?? ''}\nClass Number: ${parsedDaySchedule?[index][subjectIndex].classNumber ?? ''}',
+                                  'Αίθουσα: ${parsedDaySchedule?[index][subjectIndex].roomNumber ?? ''}\nΚαθηγητής: ${parsedDaySchedule?[index][subjectIndex].teacherName ?? ''}\nΤμήμα: ${parsedDaySchedule?[index][subjectIndex].classNumber ?? ''}',
                                 ),
                               );
                             },

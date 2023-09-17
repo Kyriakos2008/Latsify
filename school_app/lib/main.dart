@@ -5,6 +5,7 @@ import 'Screens/login_screen.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Functions/schedule.dart';
+import 'Screens/working_screen.dart';
 
 final storage = new FlutterSecureStorage();
 
@@ -24,11 +25,12 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Login Screen',
-      theme: ThemeData.light(), // Use the light theme
+      title: 'Σύνδεση',
+      theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
       home: const LoginPage(),
@@ -38,14 +40,127 @@ class MyApp extends StatelessWidget {
 
 class MyApp2 extends StatelessWidget {
   const MyApp2({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Login Screen',
-      theme: ThemeData.light(), // Use the light theme
+      title: 'Σύνδεση',
+      theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      home: const mainScreen(),
+      home: NavBar(),
+    );
+  }
+}
+
+class NavBar extends StatefulWidget {
+  @override
+  _NavBarState createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
+  int _selectedIndex = 0;
+  late PageController _pageController;
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    mainScreen(),
+    workingOnIt(),
+    workingOnIt()
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      _pageController.animateToPage(index,
+          duration: Duration(milliseconds: 250), curve: Curves.easeOut);
+    });
+  }
+
+  void logOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('firstLogin', true);
+    prefs.remove('username');
+    prefs.remove('password');
+    daySchedule.clear();
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Text(
+            'Kαλησπέρα',
+            style: TextStyle(fontSize: 25),
+          )),
+      drawer: Container(
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: DrawerHeader(
+                  child: Text('Έκδοση Alfa'),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+              ),
+              ListTile(
+                title: Text('Αποσύνδεση'),
+                onTap: () {
+                  logOut();
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+      body: SizedBox.expand(
+          child: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() => _selectedIndex = index);
+        },
+        children: _widgetOptions,
+      )),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Πρόγραμμα',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Αξιολογήσεις',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.announcement),
+            label: 'Ανακοινώσεις',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

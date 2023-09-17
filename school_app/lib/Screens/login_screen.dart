@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
         prefs.setBool('firstLogin', false);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const mainScreen()),
+          MaterialPageRoute(builder: (context) => const MyApp2()),
         );
       } else {
         setState(() {});
@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Flutter Login Screen'),
+        title: const Text('Σύνδεση'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -79,12 +79,12 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 controller: _usernameController,
                 decoration: const InputDecoration(
-                  labelText: 'Username',
+                  labelText: 'Αρ. Μητρώου',
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
+                    return 'Εισαγωγή Αρ. Μητρώου';
                   }
                   return null;
                 },
@@ -93,13 +93,13 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(
-                  labelText: 'Password',
+                  labelText: 'Αρ. Ταυτότητας',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
+                    return 'Εισαγωγή Αρ. Ταυτότητας';
                   }
                   return null;
                 },
@@ -117,14 +117,14 @@ class _LoginPageState extends State<LoginPage> {
                   Text(
                     passwordCorrect
                         ? ""
-                        : "Wrong credentials", // this will show "wrong password" only when isCorrect is false
+                        : "Λάθος διαπιστευτήρια", // this will show "wrong password" only when isCorrect is false
                     style: TextStyle(color: Colors.red),
                   ),
                 ],
               ),
               ElevatedButton(
                 onPressed: _login,
-                child: const Text('Login'),
+                child: const Text('Σύνδεση'),
               ),
             ],
           ),
