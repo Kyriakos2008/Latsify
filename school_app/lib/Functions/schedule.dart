@@ -60,6 +60,38 @@ class SchoolSubject {
       this.roomNumber, this.className, this.teacherName, this.classNumber);
 }
 
+Map<String, String> replacements = {
+  'Αγγ (Α)': 'Αγγλικά',
+  'Τεχνλ (Α)': 'Τεχνολογία',
+  'Γυμν-Α (Α)': 'Γυμναστική',
+  'ΦΥΣ_προσ': 'Φυσική',
+  'Φυσ (Α)': 'Φυσική',
+  'ΜΑΘ_προσ': 'Μαθηματικά',
+  'Αρχ (Α)': 'Αρχαία',
+  'Νέα (Α)': 'Νέα Ελληνικά',
+  'Οικον (Α)': 'Οικονομικά',
+  'ΟΙΚ_προσ': 'Οικονομικά',
+  'Θρη (α)': 'Θρησκευτικά',
+  'Γαλλ (Α)': 'Γαλλικά',
+  'Μουσ (Α)': 'Μουσική',
+  'Χημ (Α)': 'Χημία',
+  'Ιστ (Α)': 'Ιστορία',
+  'Πληρ (Α)': 'Πληροφορική',
+  'Τέχνη (Α)': 'Τέχνη',
+  'Βιολ (Α)': 'Βιολογία',
+  //'': '', maths sketta
+  //'': '', enisximena mathimata klassikou
+  // '': '',
+  // '': '',
+  // '': '',
+  // '': '',
+  // '': '',
+  // '': '',
+  // '': '',
+  // '': '',
+  // Add more replacements as needed
+};
+
 List<List<SchoolSubject>> parseSubjects(List<List<String>> daySchedule) {
   return daySchedule.map((daySubjects) {
     return daySubjects.map((subject) {
@@ -68,7 +100,15 @@ List<List<SchoolSubject>> parseSubjects(List<List<String>> daySchedule) {
       var teacherName = nameAndNumber[0].trim();
       var classNumber = nameAndNumber[1].substring(
           0, nameAndNumber[1].length - 2); // remove last two characters
-      return SchoolSubject(parts[0], parts[1], teacherName, classNumber);
+      var className = parts[1];
+
+      // Check if the className is in the replacements map
+      if (replacements.containsKey(className)) {
+        // If it is, replace it with the corresponding value
+        className = replacements[className]!;
+      }
+
+      return SchoolSubject(parts[0], className, teacherName, classNumber);
     }).toList();
   }).toList();
 }

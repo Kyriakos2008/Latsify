@@ -22,8 +22,9 @@ class _mainScreenState extends State<mainScreen> {
   void logOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('firstLogin', true);
-    prefs.setString('username', 'none');
-    prefs.setString('password', 'none');
+    prefs.remove('username');
+    prefs.remove('password');
+    daySchedule.clear();
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),

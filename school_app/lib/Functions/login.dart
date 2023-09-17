@@ -13,15 +13,15 @@ login(username, password) async {
   String? nowUsername;
   String? nowPassword;
 
-  if (prefs.getString('username') != null &&
-      prefs.getString('username') != 'none') {
+  if (prefs.getString('username') != null) {
     nowUsername = prefs.getString('username');
     nowPassword = prefs.getString('password');
   } else {
     nowUsername = username;
     nowPassword = password;
   }
-
+  print('user:' + '$nowUsername');
+  print('pass:' + '$nowPassword');
   var form = <String?, String?>{
     'username': nowUsername,
     'password': nowPassword,

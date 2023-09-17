@@ -43,10 +43,14 @@ class _LoginPageState extends State<LoginPage> {
       if (correct == true) {
         print('sosto');
         await schedule();
+
         if (prefs.getString('username') == null) {
           prefs.setString('username', '${_usernameController.text}');
           prefs.setString('password', '${_passwordController.text}');
+          print('kati kamno me to usename dame jj en exo idea');
         }
+        print('username' + "${prefs.getString('username')}");
+
         prefs.setBool('firstLogin', false);
         Navigator.push(
           context,
