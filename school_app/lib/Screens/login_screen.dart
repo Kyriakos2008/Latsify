@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:school_app/Functions/login.dart';
 import 'package:school_app/Functions/schedule.dart';
-import 'package:school_app/Screens/main_screen.dart';
 // ignore: unused_import
 import 'package:school_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/schedule.dart';
-import 'package:school_app/Screens/login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -53,6 +52,7 @@ class _mainScreenState extends State<mainScreen> {
                               '',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
+                            color: Theme.of(context).hintColor  
                           ),
                         ),
                         onTap: () {
@@ -66,6 +66,7 @@ class _mainScreenState extends State<mainScreen> {
                                     ''),
                                 content: Text(
                                   'Αίθουσα: ${parsedDaySchedule?[index][subjectIndex].roomNumber ?? ''}\nΚαθηγητής: ${parsedDaySchedule?[index][subjectIndex].teacherName ?? ''}\nΤμήμα: ${parsedDaySchedule?[index][subjectIndex].classNumber ?? ''}',
+                                style:TextStyle(color: Theme.of(context).hintColor ) 
                                 ),
                               );
                             },

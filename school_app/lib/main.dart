@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Functions/schedule.dart';
 import 'Screens/working_screen.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 final storage = new FlutterSecureStorage();
 
@@ -106,7 +107,7 @@ class _NavBarState extends State<NavBar> {
       appBar: AppBar(
           backgroundColor: Theme.of(context).primaryColor,
           title: Text(
-            'Kαλησπέρα',
+            'Γειά σου, $nameOnly',
             style: TextStyle(fontSize: 25),
           )),
       drawer: Container(
@@ -118,17 +119,32 @@ class _NavBarState extends State<NavBar> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.15,
                 child: DrawerHeader(
-                  child: Text('Έκδοση Alfa'),
+                  child: AutoSizeText(
+                    '$cell1',
+                    style: TextStyle(fontSize: 20),
+                    maxLines: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
               ListTile(
-                title: Text('Αποσύνδεση'),
-                onTap: () {
-                  logOut();
-                },
+                title: Text('Τμήμα: $cell2'),
+              ),
+              ListTile(
+                title: Text('Βοηθός διευθυντή: $cell3'),
+              ),
+              ListTile(
+                title: Text('Υπεύθηνος καθηγητής: $cell4'),
+              ),
+              ListTile(
+                title: TextButton(
+                  onPressed: () {
+                    logOut();
+                  },
+                  child: Text('Αποσύνδεση'),
+                ),
               ),
             ],
           ),
