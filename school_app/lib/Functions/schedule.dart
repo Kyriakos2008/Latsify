@@ -82,7 +82,7 @@ Map<String, String> replacements = {
   'Μαθ (Α)': 'Μαθηματικά',
   'ΙΣΤ_προσ': 'Ιστορία',
   'ΑΡΧ_προσ': 'Αρχαία',
-  'ΓΥΜ-Κ': 'Γυμναστιξή',
+  'ΓΥΜ-Κ': 'Γυμναστική',
   'ΑΓΓ_προσ': 'Αγγλικά',
   // '': '',
   // '': '',
@@ -112,3 +112,5 @@ List<List<SchoolSubject>> parseSubjects(List<List<String>> daySchedule) {
     }).toList();
   }).toList();
 }
+
+

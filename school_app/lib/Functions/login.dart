@@ -1,10 +1,14 @@
 import 'package:html/parser.dart' as parser;
 import 'package:requests/requests.dart';
-// ignore: unused_import
-import 'package:school_app/main.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool passwordCorrect = true;
+String? cell1;
+String? cell2;
+String? cell3;
+String? cell4;
+String? nameOnly;
 
 //var url = 'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php';
 login(username, password) async {
@@ -58,6 +62,38 @@ login(username, password) async {
     } else {
       print('password correct');
       passwordCorrect = true;
+
+      dom.Document document2 = parser.parse(res.content());
+
+      dom.Element? tableElement = document2.querySelector('.myTable');
+
+      if (tableElement != null) {
+        // Get the second row of the table
+        List<dom.Element> rows = tableElement.querySelectorAll('tr');
+        if (rows.length > 1) {
+          dom.Element row = rows[1];
+
+          // Get the first four cells of the row
+          List<dom.Element> cells = row.querySelectorAll('td');
+          if (cells.length >= 4) {
+            // Assign the cell values to variables
+            cell1 = cells[0].text;
+            cell2 = cells[1].text;
+            cell3 = cells[2].text;
+            cell4 = cells[3].text;
+
+            print('Cell 1: $cell1');
+            print('Cell 2: $cell2');
+            print('Cell 3: $cell3');
+            print('Cell 4: $cell4');
+
+            List<String>? words = cell1?.split(" ");
+            nameOnly = words?[1];
+
+            // Use the cell values...
+          }
+        }
+      }
     }
     print(passwordCorrect);
     return passwordCorrect;
