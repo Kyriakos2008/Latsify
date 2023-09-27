@@ -40,7 +40,6 @@ class _LoginPageState extends State<LoginPage> {
       bool correct = await login(
           '${_usernameController.text}', '${_passwordController.text}');
       if (correct == true) {
-        print('sosto');
         await schedule();
 
         if (prefs.getString('username') == null) {
@@ -57,7 +56,6 @@ class _LoginPageState extends State<LoginPage> {
         );
       } else {
         setState(() {});
-        print('lathos');
       }
     }
   }

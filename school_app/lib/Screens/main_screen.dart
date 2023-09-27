@@ -20,7 +20,7 @@ class _mainScreenState extends State<mainScreen> {
     today = DateTime.now().weekday;
     if (today > 5) {
       // If it's Saturday or Sunday
-      today = 1; // Set to Monday
+      today = 0; // Set to Monday
     } else {
       today -= 1; // Subtract 1 because PageView index starts from 0
     }
