@@ -24,8 +24,6 @@ login(username, password) async {
     nowUsername = username;
     nowPassword = password;
   }
-  print('user:' + '$nowUsername');
-  print('pass:' + '$nowPassword');
   var form = <String?, String?>{
     'username': nowUsername,
     'password': nowPassword,
@@ -38,9 +36,7 @@ login(username, password) async {
     'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php',
     body: form,
   );
-
-  print(res.statusCode);
-  //print(res.body);
+  print(res.body);
 
   String text = 'ΛΑΘΟΣ ΚΩΔΙΚΟΣ - ΔΟΚΙΜΑΣΤΕ ΞΑΝΑ';
 
@@ -55,7 +51,6 @@ login(username, password) async {
         .toList();
 
     // Print the number of elements found
-    print('Found ${elements.length} elements with the text "$text"');
     if (elements.length > 0) {
       print('password incorrect');
       passwordCorrect = false;
@@ -82,10 +77,6 @@ login(username, password) async {
             cell3 = cells[2].text;
             cell4 = cells[3].text;
 
-            print('Cell 1: $cell1');
-            print('Cell 2: $cell2');
-            print('Cell 3: $cell3');
-            print('Cell 4: $cell4');
 
             List<String>? words = cell1?.split(" ");
             nameOnly = words?[1];
@@ -95,7 +86,6 @@ login(username, password) async {
         }
       }
     }
-    print(passwordCorrect);
     return passwordCorrect;
   } else {
     // Handle the error

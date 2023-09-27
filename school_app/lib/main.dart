@@ -11,15 +11,20 @@ import 'package:auto_size_text/auto_size_text.dart';
 final storage = new FlutterSecureStorage();
 
 void main() async {
+  print('app started');
   WidgetsFlutterBinding.ensureInitialized();
+  print('widgets initialized');
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  print(prefs.getBool('firstLogin'));
   if (prefs.getBool('firstLogin') == false) {
+    print('login now');
     await login(null, null);
+    print('schedule now');
     await schedule();
     runApp(const MyApp2());
+    print('app loading');
   } else {
+    print('first time');
     runApp(const MyApp());
   }
 }
@@ -65,8 +70,8 @@ class _NavBarState extends State<NavBar> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     mainScreen(),
-    workingOnIt(),
-    workingOnIt()
+    const workingOnIt(),
+    const workingOnIt()
   ];
 
   @override
@@ -105,59 +110,25 @@ class _NavBarState extends State<NavBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          title: Text(
-            'Γειά σου, $nameOnly',
-            style: TextStyle(fontSize: 25),
-          )),
-      drawer: Container(
-        width: MediaQuery.of(context).size.width * 0.6,
-        child: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.15,
-                child: DrawerHeader(
-                  child: AutoSizeText(
-                    '$cell1',
-                    style: TextStyle(fontSize: 20),
-                    maxLines: 2,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-              ),
-              ListTile(
-                title: Text('Τμήμα: $cell2'),
-              ),
-              ListTile(
-                title: Text('Βοηθός διευθυντή: $cell3'),
-              ),
-              ListTile(
-                title: Text('Υπεύθηνος καθηγητής: $cell4'),
-              ),
-              ListTile(
-                title: TextButton(
-                  onPressed: () {
-                    logOut();
-                  },
-                  child: Text('Αποσύνδεση'),
-                ),
-              ),
-            ],
-          ),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          'Γειά σου, $nameOnly',
+          style: TextStyle(fontSize: 25),
         ),
       ),
+      drawer: Container(
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: _buildDrawer(),
+      ),
       body: SizedBox.expand(
-          child: PageView(
-        controller: _pageController,
-        onPageChanged: (index) {
-          setState(() => _selectedIndex = index);
-        },
-        children: _widgetOptions,
-      )),
+        child: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() => _selectedIndex = index);
+          },
+          children: _widgetOptions,
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -176,6 +147,50 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
+      ),
+    );
+  }
+
+  Widget _buildDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height * 0.15,
+            child: _buildDrawerHeader(),
+          ),
+          ListTile(
+            title: Text('Τμήμα: $cell2'),
+          ),
+          ListTile(
+            title: Text('Βοηθός διευθυντή: $cell3'),
+          ),
+          ListTile(
+            title: Text('Υπεύθηνος καθηγητής: $cell4'),
+          ),
+          ListTile(
+            title: TextButton(
+              onPressed: () {
+                logOut();
+              },
+              child: Text('Αποσύνδεση'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDrawerHeader() {
+    return DrawerHeader(
+      child: AutoSizeText(
+        '$cell1',
+        style: TextStyle(fontSize: 20),
+        maxLines: 2,
+      ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
       ),
     );
   }
