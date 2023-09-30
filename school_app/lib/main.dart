@@ -174,7 +174,12 @@ class _NavBarState extends State<NavBar> {
               onPressed: () {
                 logOut();
               },
-              child: Text('Αποσύνδεση'),
+              child: Row(
+                children: [
+                  Text('Αποσύνδεση'),
+                  Icon(Icons.logout),
+                ],
+              ),
             ),
           ),
         ],
