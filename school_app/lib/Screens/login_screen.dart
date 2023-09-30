@@ -33,10 +33,8 @@ class _LoginPageState extends State<LoginPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_formKey.currentState!.validate()) {
       // Perform login logic here
-
-      //login('${_usernameController.text}', '${_passwordController.text}');
-      //print('Username: ${_usernameController.text}');
-      //print('Password: ${_passwordController.text}'); // calls function to login
+      _showprogress = true;
+      setState(() {});
       bool correct = await login(
           '${_usernameController.text}', '${_passwordController.text}');
       if (correct == true) {
@@ -55,11 +53,13 @@ class _LoginPageState extends State<LoginPage> {
           MaterialPageRoute(builder: (context) => const MyApp2()),
         );
       } else {
+        _showprogress = false;
         setState(() {});
       }
     }
   }
 
+  bool _showprogress = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,65 +67,77 @@ class _LoginPageState extends State<LoginPage> {
         automaticallyImplyLeading: false,
         title: const Text('Σύνδεση'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _usernameController,
-                decoration: const InputDecoration(
-                  labelText: 'Αρ. Μητρώου',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Εισαγωγή Αρ. Μητρώου';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Αρ. Ταυτότητας',
-                  border: OutlineInputBorder(),
-                ),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Εισαγωγή Αρ. Ταυτότητας';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16.0),
-              Row(
-                children: [
-                  Icon(
-                    passwordCorrect
-                        ? null
-                        : Icons
-                            .warning, // this will show a warning icon only when isCorrect is false
-                    color: Colors.red,
+      body: Stack(
+        children: [
+          
+          Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Αρ. Μητρώου',
+                    border: OutlineInputBorder(),
                   ),
-                  Text(
-                    passwordCorrect
-                        ? ""
-                        : "Λάθος διαπιστευτήρια", // this will show "wrong password" only when isCorrect is false
-                    style: TextStyle(color: Colors.red),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Εισαγωγή Αρ. Μητρώου';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Αρ. Ταυτότητας',
+                    border: OutlineInputBorder(),
                   ),
-                ],
-              ),
-              ElevatedButton(
-                onPressed: _login,
-                child: const Text('Σύνδεση'),
-              ),
-            ],
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Εισαγωγή Αρ. Ταυτότητας';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16.0),
+                Row(
+                  children: [
+                    Icon(
+                      passwordCorrect
+                          ? null
+                          : Icons
+                              .warning, // this will show a warning icon only when isCorrect is false
+                      color: Colors.red,
+                    ),
+                    Text(
+                      passwordCorrect
+                          ? ""
+                          : "Λάθος διαπιστευτήρια", // this will show "wrong password" only when isCorrect is false
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: _login,
+                  child: const Text('Σύνδεση'),
+                ),
+              ],
+            ),
           ),
         ),
+        if (_showprogress)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: LinearProgressIndicator(),
+          ),
+        ]
       ),
     );
   }
