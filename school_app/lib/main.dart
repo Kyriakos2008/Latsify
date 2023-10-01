@@ -14,15 +14,10 @@ void main() async {
   print('app started');
   WidgetsFlutterBinding.ensureInitialized();
   print('widgets initialized');
-
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getBool('firstLogin') == false) {
-    print('login now');
-    await login(null, null);
-    print('schedule now');
-    await schedule();
+    detailsGet();
     runApp(const MyApp2());
-    print('app loading');
   } else {
     print('first time');
     runApp(const MyApp());
@@ -96,9 +91,7 @@ class _NavBarState extends State<NavBar> {
 
   void logOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('firstLogin', true);
-    prefs.remove('username');
-    prefs.remove('password');
+    prefs.clear();
     daySchedule.clear();
     Navigator.push(
       context,
@@ -177,7 +170,10 @@ class _NavBarState extends State<NavBar> {
               child: Row(
                 children: [
                   Text('Αποσύνδεση'),
-                  Icon(Icons.logout),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                    child: Icon(Icons.logout),
+                  ),
                 ],
               ),
             ),

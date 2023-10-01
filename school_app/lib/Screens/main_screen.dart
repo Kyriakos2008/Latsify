@@ -9,14 +9,20 @@ class mainScreen extends StatefulWidget {
 }
 
 int today = 1;
+List<List<SchoolSubject>>? parsedDaySchedule;
 
-class _mainScreenState extends State<mainScreen> {
-  List<List<SchoolSubject>>? parsedDaySchedule;
-
+class _mainScreenState extends State<mainScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
+  bool get wantKeepAlive => true;
   void initState() {
     super.initState();
-    parsedDaySchedule = parseSubjects(daySchedule);
+    scheduleget().then((value) {
+      setState(() {
+        daySchedule = value;
+        parsedDaySchedule = parseSubjects(daySchedule);
+      });
+    });
     today = DateTime.now().weekday;
     if (today > 5) {
       // If it's Saturday or Sunday
@@ -24,10 +30,12 @@ class _mainScreenState extends State<mainScreen> {
     } else {
       today -= 1; // Subtract 1 because PageView index starts from 0
     }
+    print('loaded');
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: PageView.builder(
         controller: PageController(initialPage: today),
