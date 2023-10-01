@@ -36,7 +36,7 @@ login(username, password) async {
     'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php',
     body: form,
   );
-  print(res.body);
+  //print(res.body);
 
   String text = 'ΛΑΘΟΣ ΚΩΔΙΚΟΣ - ΔΟΚΙΜΑΣΤΕ ΞΑΝΑ';
 
@@ -77,10 +77,14 @@ login(username, password) async {
             cell3 = cells[2].text;
             cell4 = cells[3].text;
 
+            prefs.setString('cell1', cell1!);
+            prefs.setString('cell2', cell2!);
+            prefs.setString('cell3', cell3!);
+            prefs.setString('cell4', cell4!);
 
             List<String>? words = cell1?.split(" ");
             nameOnly = words?[1];
-
+            prefs.setString('nameOnly', nameOnly!);
             // Use the cell values...
           }
         }
