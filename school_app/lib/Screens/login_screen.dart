@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:school_app/Functions/login.dart';
@@ -38,20 +39,40 @@ class _LoginPageState extends State<LoginPage> {
       bool correct = await login(
           '${_usernameController.text}', '${_passwordController.text}');
       if (correct == true) {
-        await schedule();
+        if (await userChecker()) {
+          await schedule();
+          if (prefs.getString('username') == null) {
+            prefs.setString('username', '${_usernameController.text}');
+            prefs.setString('password', '${_passwordController.text}');
+            print('kati kamno me to usename dame jj en exo idea');
+          }
 
-        if (prefs.getString('username') == null) {
-          prefs.setString('username', '${_usernameController.text}');
-          prefs.setString('password', '${_passwordController.text}');
-          print('kati kamno me to usename dame jj en exo idea');
+          prefs.setBool('firstLogin', false);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const MyApp2()),
+          );
+        } else {
+          _showprogress = false;
+          setState(() {});
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Popup Title'),
+                content: Text('This is the popup message.'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    child: Text('OK'),
+                  ),
+                ],
+              );
+            },
+          );
         }
-        print('username' + "${prefs.getString('username')}");
-
-        prefs.setBool('firstLogin', false);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const MyApp2()),
-        );
       } else {
         _showprogress = false;
         setState(() {});
@@ -67,10 +88,8 @@ class _LoginPageState extends State<LoginPage> {
         automaticallyImplyLeading: false,
         title: const Text('Σύνδεση'),
       ),
-      body: Stack(
-        children: [
-          
-          Padding(
+      body: Stack(children: [
+        Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
@@ -137,8 +156,7 @@ class _LoginPageState extends State<LoginPage> {
             right: 0,
             child: LinearProgressIndicator(),
           ),
-        ]
-      ),
+      ]),
     );
   }
 }

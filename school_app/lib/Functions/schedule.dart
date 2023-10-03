@@ -1,16 +1,45 @@
+import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:requests/requests.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:school_app/Functions/login.dart';
-import 'package:school_app/Screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:school_app/Screens/main_screen.dart';
 
 List<List<String>> daySchedule = [];
+bool? isUserOk = null;
+
+userChecker() async {
+  var userCheck = await http.get(
+      Uri.parse('https://kyriakos2008.github.io/School-App-Public/Users.json'));
+  var jsonUsers = userCheck.body;
+
+  var list =
+      jsonDecode(jsonUsers) as List; // Parse the json file into a Dart list
+  print(list);
+  bool exists = list.contains(
+      nowUsername); // Use the 'contains' method to check if nowUsername is in the list
+  if (exists) {
+    // Do something if the username  exists in the list
+    return exists;
+  } else {
+    // Do something else if the username does not exist in the list
+    await logingOut();
+    return exists;
+  }
+}
+
+logingOut() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
+  daySchedule.clear();
+  return;
+}
 
 Future<void> schedule() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+
   daySchedule = [];
   var schedule = await Requests.get(
       'http://81.4.170.42/~lyk-latsia-lef/epiloges/mathitisp2.php');
@@ -83,14 +112,13 @@ detailsGet() async {
 }
 
 Future<void> scheduleVerify() async {
-  await login(null, null);
-  await schedule();
-  setState() {
-    // Update your ListView here
-    parsedDaySchedule = parseSubjects(daySchedule);
+  if (await login(null, null)) {
+    await schedule();
+    setState() {
+      // Update your ListView here
+      parsedDaySchedule = parseSubjects(daySchedule);
+    }
   }
-
-  ;
 }
 
 class SchoolSubject {
