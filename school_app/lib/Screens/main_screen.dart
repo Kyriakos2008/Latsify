@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/schedule.dart';
+import 'package:school_app/Screens/login_screen.dart';
+import 'package:school_app/main.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -31,6 +33,34 @@ class _mainScreenState extends State<mainScreen>
       today -= 1; // Subtract 1 because PageView index starts from 0
     }
     print('loaded');
+    _userchecker();
+  }
+
+  _userchecker() async {
+    if (await userChecker() == false) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Popup Title'),
+              content: Text('This is the popup message.'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+    }
+
   }
 
   @override

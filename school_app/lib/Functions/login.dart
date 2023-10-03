@@ -9,13 +9,15 @@ String? cell2;
 String? cell3;
 String? cell4;
 String? nameOnly;
+String? nowUsername;
+String? nowPassword;
 
 //var url = 'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php';
 login(username, password) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  String? nowUsername;
-  String? nowPassword;
+  nowUsername = null;
+  nowPassword = null;
 
   if (prefs.getString('username') != null) {
     nowUsername = prefs.getString('username');
@@ -28,9 +30,6 @@ login(username, password) async {
     'username': nowUsername,
     'password': nowPassword,
   };
-
-  // await storage.write(key: 'username', value: username);
-  // await storage.write(key: 'password', value: password);
 
   var res = await Requests.post(
     'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php',
