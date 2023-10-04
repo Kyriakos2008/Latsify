@@ -24,6 +24,8 @@ void main() async {
   }
 }
 
+
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -113,15 +115,20 @@ class _NavBarState extends State<NavBar> {
         width: MediaQuery.of(context).size.width * 0.6,
         child: _buildDrawer(),
       ),
-      body: SizedBox.expand(
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _selectedIndex = index);
-          },
-          children: _widgetOptions,
+      body: Stack(children: [
+        
+
+        SizedBox.expand(
+          child: PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() => _selectedIndex = index);
+            },
+            children: _widgetOptions,
+          ),
         ),
-      ),
+        
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

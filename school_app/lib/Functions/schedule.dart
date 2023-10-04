@@ -9,8 +9,10 @@ import 'package:school_app/Screens/main_screen.dart';
 
 List<List<String>> daySchedule = [];
 bool? isUserOk = null;
+bool? exists;
 
 userChecker() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   var userCheck = await http.get(
       Uri.parse('https://kyriakos2008.github.io/School-App-Public/Users.json'));
   var jsonUsers = userCheck.body;
@@ -18,9 +20,11 @@ userChecker() async {
   var list =
       jsonDecode(jsonUsers) as List; // Parse the json file into a Dart list
   print(list);
-  bool exists = list.contains(
-      nowUsername); // Use the 'contains' method to check if nowUsername is in the list
-  if (exists) {
+  String? checkerUsername = prefs.getString('username');
+  print(checkerUsername);
+  exists = list.contains(
+      checkerUsername); // Use the 'contains' method to check if nowUsername is in the list
+  if (exists!) {
     // Do something if the username  exists in the list
     return exists;
   } else {
@@ -97,7 +101,7 @@ scheduleget() async {
       .map((element) => List<String>.from(element))
       .toList();
 
-  scheduleVerify();
+  //scheduleVerify();
   return daySchedule;
 }
 
@@ -114,10 +118,7 @@ detailsGet() async {
 Future<void> scheduleVerify() async {
   if (await login(null, null)) {
     await schedule();
-    setState() {
-      // Update your ListView here
-      parsedDaySchedule = parseSubjects(daySchedule);
-    }
+    parsedDaySchedule = parseSubjects(daySchedule);
   }
 }
 
