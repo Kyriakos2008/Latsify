@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/login.dart';
 import 'package:school_app/Screens/main_screen.dart';
+import 'package:school_app/Screens/test_screen.dart';
 import 'Screens/login_screen.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,7 +68,7 @@ class _NavBarState extends State<NavBar> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     mainScreen(),
-    const workingOnIt(),
+    TestScreen(),
     const workingOnIt()
   ];
 
@@ -75,6 +76,7 @@ class _NavBarState extends State<NavBar> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    
   }
 
   @override

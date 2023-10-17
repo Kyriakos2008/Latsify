@@ -6,6 +6,7 @@ import 'package:school_app/Functions/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:school_app/Screens/main_screen.dart';
+import 'tests.dart';
 
 List<List<String>> daySchedule = [];
 bool? isUserOk = null;
@@ -88,6 +89,7 @@ Future<void> schedule() async {
   } else {
     print('schedule failed');
   }
+  
 }
 
 scheduleget() async {
