@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:school_app/Functions/schedule.dart';
 import 'package:school_app/Screens/login_screen.dart';
 import 'package:school_app/main.dart';
+import 'package:school_app/Functions/tests.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -13,10 +14,12 @@ class mainScreen extends StatefulWidget {
 int today = 1;
 List<List<SchoolSubject>>? parsedDaySchedule;
 bool isScheduleLoading = true;
+List<MyTableData> tableData = [];
 class _mainScreenState extends State<mainScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+  
   void initState() {
     super.initState();
     scheduleget().then((value) {
@@ -36,10 +39,16 @@ class _mainScreenState extends State<mainScreen>
     _userchecker();
   }
 
+  void _getFirstData() async {
+    List<MyTableData> data = await getTests();
+    tableData = data;
+  }
+
   _scheduleVerify() async {
     await scheduleVerify();
     isScheduleLoading = false;
     setState(() {});
+    _getFirstData();
     print('taxa set state');
   }
 
@@ -77,8 +86,8 @@ class _mainScreenState extends State<mainScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: Stack(
-        children:[ PageView.builder(
+      body: Stack(children: [
+        PageView.builder(
           controller: PageController(initialPage: today),
           itemCount: parsedDaySchedule?.length ?? 0,
           itemBuilder: (context, index) {
@@ -87,7 +96,13 @@ class _mainScreenState extends State<mainScreen>
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    ['Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή'][index],
+                    [
+                      'Δευτέρα',
+                      'Τρίτη',
+                      'Τετάρτη',
+                      'Πέμπτη',
+                      'Παρασκευή'
+                    ][index],
                     style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -132,12 +147,12 @@ class _mainScreenState extends State<mainScreen>
                     },
                   ),
                 ),
-      ],
+              ],
             );
           },
         ),
-        if(isScheduleLoading)
-            Positioned(
+        if (isScheduleLoading)
+          Positioned(
             top: 0,
             left: 0,
             right: 0,

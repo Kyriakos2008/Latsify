@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'package:school_app/Screens/main_screen.dart';
 
 List<List<String>> tests = [];
+bool areTestsLoading = true;
 
 Future<List<MyTableData>> getTests() async {
   print('getting tests');
@@ -52,6 +53,7 @@ Future<List<MyTableData>> getTests() async {
       });
     });
     print(tableData[0].column1 + tableData[0].column2);
+    areTestsLoading = false;
     return tableData;
   } else {
     return []; // Return an empty list in case of an error
@@ -66,7 +68,7 @@ bool isDateInFuture(String date) {
       int year = int.parse(dateParts[2]);
       int month = int.parse(dateParts[1]);
       int day = int.parse(dateParts[0]);
-      
+
       DateTime parsedDate = DateTime(year, month, day);
 
       // Compare the parsed date with the current date or if it's today
@@ -78,7 +80,6 @@ bool isDateInFuture(String date) {
     return false;
   }
 }
-
 
 class MyTableData {
   String column1;
