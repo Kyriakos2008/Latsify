@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'Functions/schedule.dart';
 import 'Screens/working_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'Functions/tests.dart';
 
 final storage = new FlutterSecureStorage();
 
@@ -76,8 +77,9 @@ class _NavBarState extends State<NavBar> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    
+
   }
+  
 
   @override
   void dispose() {
@@ -102,6 +104,9 @@ class _NavBarState extends State<NavBar> {
       MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
+
+
+  
 
   @override
   Widget build(BuildContext context) {
