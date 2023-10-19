@@ -39,19 +39,17 @@ Future<List<MyTableData>> getTests() async {
           String column1 = cells[0].text.trim();
           String column2 = cells[1].text.trim();
 
-          // Check if the date has not passed
-          if (isDateInFuture(column1)) {
-            // Replace the text in the second column using the replacements map
-            if (replacements.containsKey(column2)) {
-              column2 = replacements[column2]!;
-            }
-
-            // Create a MyTableData object and add it to the list
-            tableData.add(MyTableData(column1: column1, column2: column2));
+          // Replace the text in the second column using the replacements map
+          if (replacements.containsKey(column2)) {
+            column2 = replacements[column2]!;
           }
+
+          // Create a MyTableData object and add it to the list
+          tableData.add(MyTableData(column1: column1, column2: column2));
         }
       });
     });
+
     print(tableData[0].column1 + tableData[0].column2);
     areTestsLoading = false;
     return tableData;
@@ -59,6 +57,7 @@ Future<List<MyTableData>> getTests() async {
     return []; // Return an empty list in case of an error
   }
 }
+
 
 bool isDateInFuture(String date) {
   try {
