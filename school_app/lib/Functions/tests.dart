@@ -9,6 +9,7 @@ import 'package:school_app/Functions/schedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:school_app/Screens/main_screen.dart';
+import 'package:school_app/Screens/test_screen.dart';
 
 List<List<String>> tests = [];
 bool areTestsLoading = true;
@@ -52,12 +53,12 @@ Future<List<MyTableData>> getTests() async {
 
     print(tableData[0].column1 + tableData[0].column2);
     areTestsLoading = false;
+    
     return tableData;
   } else {
     return []; // Return an empty list in case of an error
   }
 }
-
 
 bool isDateInFuture(String date) {
   try {
