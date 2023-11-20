@@ -9,6 +9,7 @@ import 'Functions/schedule.dart';
 import 'Screens/working_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'Functions/tests.dart';
+import 'Screens/results_screen.dart';
 
 final storage = new FlutterSecureStorage();
 
@@ -67,10 +68,11 @@ class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
   late PageController _pageController;
 
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     mainScreen(),
     TestScreen(),
-    const workingOnIt()
+    ScrapingScreen(),
+    workingOnIt()
   ];
 
   @override
@@ -145,6 +147,10 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Αξιολογήσεις',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.grade),
+            label: 'Βαθμολογίες',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.announcement),

@@ -27,12 +27,10 @@ class _TestScreenState extends State<TestScreen>
     print('irte dame');
     print(areTestsLoading);
 
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(Duration(milliseconds: 250), (timer) {
       if (areTestsLoading) {
         // The bool has changed to true, perform your action
-        print('Your bool has changed to true. Performing the action.');
       } else {
-        print('MALAKA AN EDOULEPSE');
         setState(() {});
         timer.cancel();
       }
@@ -58,7 +56,7 @@ class _TestScreenState extends State<TestScreen>
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  'Προειδοποιημένα Διαγωνίσματα',
+                  'Διαγωνίσματα',
                   style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,

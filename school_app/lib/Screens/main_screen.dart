@@ -3,6 +3,7 @@ import 'package:school_app/Functions/schedule.dart';
 import 'package:school_app/Screens/login_screen.dart';
 import 'package:school_app/main.dart';
 import 'package:school_app/Functions/tests.dart';
+import 'package:school_app/Functions/results.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -15,11 +16,12 @@ int today = 1;
 List<List<SchoolSubject>>? parsedDaySchedule;
 bool isScheduleLoading = true;
 List<MyTableData> tableData = [];
+
 class _mainScreenState extends State<mainScreen>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-  
+
   void initState() {
     super.initState();
     scheduleget().then((value) {
@@ -42,6 +44,7 @@ class _mainScreenState extends State<mainScreen>
   void _getFirstData() async {
     List<MyTableData> data = await getTests();
     tableData = data;
+    fetchresults();
   }
 
   _scheduleVerify() async {
