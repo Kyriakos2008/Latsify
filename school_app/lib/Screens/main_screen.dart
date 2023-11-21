@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/schedule.dart';
 import 'package:school_app/Screens/login_screen.dart';
-import 'package:school_app/main.dart';
 import 'package:school_app/Functions/tests.dart';
 import 'package:school_app/Functions/results.dart';
 

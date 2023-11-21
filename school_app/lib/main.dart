@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/login.dart';
+import 'package:school_app/Functions/results.dart';
+import 'package:school_app/Functions/tests.dart';
 import 'package:school_app/Screens/main_screen.dart';
-import 'package:school_app/Screens/test_screen.dart';
 import 'Screens/login_screen.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Functions/schedule.dart';
 import 'Screens/working_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'Functions/tests.dart';
-import 'Screens/results_screen.dart';
+import 'Screens/mainTest_screen.dart';
 
 final storage = new FlutterSecureStorage();
 
@@ -26,8 +26,6 @@ void main() async {
     runApp(const MyApp());
   }
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -70,8 +68,7 @@ class _NavBarState extends State<NavBar> {
 
   static List<Widget> _widgetOptions = <Widget>[
     mainScreen(),
-    TestScreen(),
-    ScrapingScreen(),
+    mainTests(),
     workingOnIt()
   ];
 
@@ -79,9 +76,7 @@ class _NavBarState extends State<NavBar> {
   void initState() {
     super.initState();
     _pageController = PageController();
-
   }
-  
 
   @override
   void dispose() {
@@ -101,14 +96,13 @@ class _NavBarState extends State<NavBar> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.clear();
     daySchedule.clear();
+    tests.clear();
+    scrapedData.clear();
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
     );
   }
-
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +119,6 @@ class _NavBarState extends State<NavBar> {
         child: _buildDrawer(),
       ),
       body: Stack(children: [
-        
-
         SizedBox.expand(
           child: PageView(
             controller: _pageController,
@@ -136,7 +128,6 @@ class _NavBarState extends State<NavBar> {
             children: _widgetOptions,
           ),
         ),
-        
       ]),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -147,10 +138,6 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Αξιολογήσεις',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grade),
-            label: 'Βαθμολογίες',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.announcement),

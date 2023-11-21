@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:requests/requests.dart';
-import 'package:html/parser.dart' as parser;
-import 'package:html/dom.dart' as dom;
 import 'package:school_app/Functions/results.dart';
-import 'package:flutter/material.dart';
-import 'package:school_app/Functions/tests.dart';
-import 'package:school_app/Screens/main_screen.dart';
 import 'dart:async';
 
 
 
-class ScrapingScreen extends StatefulWidget {
+class resultsScreen extends StatefulWidget {
   @override
-  _ScrapingScreenState createState() => _ScrapingScreenState();
+  _resultsScreen createState() => _resultsScreen();
 }
 
-class _ScrapingScreenState extends State<ScrapingScreen> {
+class _resultsScreen extends State<resultsScreen> {
   @override
   void initState() {
     super.initState();
