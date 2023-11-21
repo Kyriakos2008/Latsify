@@ -1,15 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:requests/requests.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:school_app/Functions/login.dart';
 import 'package:school_app/Functions/schedule.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-import 'package:school_app/Screens/main_screen.dart';
-import 'package:school_app/Screens/test_screen.dart';
 
 List<List<String>> tests = [];
 bool areTestsLoading = true;

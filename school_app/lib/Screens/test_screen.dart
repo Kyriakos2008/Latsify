@@ -46,25 +46,13 @@ class _TestScreenState extends State<TestScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     print('Building widget with ${tableData.length} items');
     return Scaffold(
       body: Stack(children: [
         Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  'Διαγωνίσματα',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).hintColor,
-                  ),
-                ),
-              ),
-            ),
+           
             Expanded(
               child: ListView(
                 children: [

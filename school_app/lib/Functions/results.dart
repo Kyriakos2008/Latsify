@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:requests/requests.dart';
 import 'package:html/parser.dart' as parser;
-import 'package:html/dom.dart' as dom;
 
 List<Map<String, String>> scrapedData = [];
 bool areResultsLoading = true;
