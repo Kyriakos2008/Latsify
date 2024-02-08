@@ -30,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+   
+
   void _login() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (_formKey.currentState!.validate()) {
@@ -52,29 +54,28 @@ class _LoginPageState extends State<LoginPage> {
               context,
               MaterialPageRoute(builder: (context) => const MyApp2()),
             );
-          }else{
+          } else {
             _showprogress = false;
-          setState(() {});
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Icon(Icons.warning),
-                content: Text(
-                    'Δεν πληροίτε τις προϋποθέσεις για χρήση αυτής της εφαρμογής.'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                    },
-                    child: Text('OK'),
-                  ),
-                ],
-              );
-            },
-          );
-          exists = null;
-
+            setState(() {});
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Icon(Icons.warning),
+                  content: Text(
+                      'Δεν πληροίτε τις προϋποθέσεις για χρήση αυτής της εφαρμογής.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(); // Close the dialog
+                      },
+                      child: Text('OK'),
+                    ),
+                  ],
+                );
+              },
+            );
+            exists = null;
           }
         }
       } else {
@@ -84,9 +85,45 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Icon(Icons.info),
+          content: Column(
+             
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('1: Ο δημιουργός αυτής της εφαρμογής δεν είναι υπεύθυνος για τυχόν παραπληροφόρηση που εμφανίζεται κατά τη χρήση.'),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('2: Χρησιμοποιώντας αυτήν την εφαρμογή συμφωνείτε να μοιραστείτε τον μοναδικό αριθμό εγγραφής σας.'),
+              )
+              ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // This will close the dialog
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
   bool _showprogress = false;
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showDialog(context);
+    });
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -160,6 +197,9 @@ class _LoginPageState extends State<LoginPage> {
             right: 0,
             child: LinearProgressIndicator(),
           ),
+          
+
+          
       ]),
     );
   }
