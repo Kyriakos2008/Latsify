@@ -1,8 +1,11 @@
+import 'dart:convert';
+import 'package:school_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/schedule.dart';
 import 'package:school_app/Screens/login_screen.dart';
 import 'package:school_app/Functions/tests.dart';
 import 'package:school_app/Functions/results.dart';
+import 'package:http/http.dart' as http;
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -36,8 +39,8 @@ class _mainScreenState extends State<mainScreen>
     } else {
       today -= 1; // Subtract 1 because PageView index starts from 0
     }
-    print('loaded');
     _userchecker();
+    updateChecker();
   }
 
   void _getFirstData() async {
@@ -51,7 +54,6 @@ class _mainScreenState extends State<mainScreen>
     isScheduleLoading = false;
     setState(() {});
     _getFirstData();
-    print('taxa set state');
   }
 
   _userchecker() async {
@@ -64,15 +66,15 @@ class _mainScreenState extends State<mainScreen>
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Icon(Icons.warning),
-            content: Text(
+            title: const Icon(Icons.warning),
+            content: const Text(
                 'Δεν πληροίτε τις προϋποθέσεις για χρήση αυτής της εφαρμογής.'),
             actions: [
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -81,6 +83,37 @@ class _mainScreenState extends State<mainScreen>
       exists = null;
     } else {
       _scheduleVerify();
+    }
+  }
+
+  updateChecker() async {
+    
+    var latestVersionRaw = await http.get(Uri.parse(
+        'https://raw.githubusercontent.com/Kyriakos2008/Latsify-Public/main/latestVersion.json'));
+    var latestVersionVar = latestVersionRaw.body;
+
+    var latestVersion = jsonDecode(latestVersionVar) as String;
+
+
+    if (currentVersion != latestVersion) {
+      showDialog(
+      context: context,
+      builder: (BuildContext Versioncontext) {
+        return AlertDialog(
+          title: const Icon(Icons.info),
+          content: const Text('Μια νέα έκδοση είναι διαθέσιμη. Συνιστούμε την ενημέρωση της εφαρμογής για την καλύτερη εμπειρία.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(Versioncontext).pop(); // This will close the dialog
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+    } else {
     }
   }
 
@@ -114,11 +147,11 @@ class _mainScreenState extends State<mainScreen>
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: parsedDaySchedule?[index].length ?? 0,
                     itemBuilder: (context, subjectIndex) {
                       return Card(
-                        margin: EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.all(8.0),
                         child: ListTile(
                           title: Text(
                             parsedDaySchedule?[index][subjectIndex].className ??
@@ -154,7 +187,7 @@ class _mainScreenState extends State<mainScreen>
           },
         ),
         if (isScheduleLoading)
-          Positioned(
+          const Positioned(
             top: 0,
             left: 0,
             right: 0,

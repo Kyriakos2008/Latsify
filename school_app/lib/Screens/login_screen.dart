@@ -44,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
         if (prefs.getString('username') == null) {
           prefs.setString('username', '${_usernameController.text}');
           prefs.setString('password', '${_passwordController.text}');
-          print('kati kamno me to usename dame jj en exo idea');
 
           if (await userChecker()) {
             await schedule();
@@ -61,15 +60,15 @@ class _LoginPageState extends State<LoginPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: Icon(Icons.warning),
-                  content: Text(
+                  title: const Icon(Icons.warning),
+                  content: const Text(
                       'Δεν πληροίτε τις προϋποθέσεις για χρήση αυτής της εφαρμογής.'),
                   actions: [
                     TextButton(
                       onPressed: () {
                         Navigator.of(context).pop(); // Close the dialog
                       },
-                      child: Text('OK'),
+                      child: const Text('OK'),
                     ),
                   ],
                 );
@@ -90,16 +89,16 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Icon(Icons.info),
-          content: Column(
+          title: const Icon(Icons.info),
+          content: const Column(
              
             children: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Text('1: Ο δημιουργός αυτής της εφαρμογής δεν είναι υπεύθυνος για τυχόν παραπληροφόρηση που εμφανίζεται κατά τη χρήση.'),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.0),
                 child: Text('2: Χρησιμοποιώντας αυτήν την εφαρμογή συμφωνείτε να μοιραστείτε τον μοναδικό αριθμό εγγραφής σας.'),
               )
               ],
@@ -109,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 Navigator.of(context).pop(); // This will close the dialog
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
@@ -178,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                       passwordCorrect
                           ? ""
                           : "Λάθος διαπιστευτήρια", // this will show "wrong password" only when isCorrect is false
-                      style: TextStyle(color: Colors.red),
+                      style: const TextStyle(color: Colors.red),
                     ),
                   ],
                 ),
@@ -191,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         if (_showprogress)
-          Positioned(
+          const Positioned(
             top: 0,
             left: 0,
             right: 0,

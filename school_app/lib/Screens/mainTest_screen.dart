@@ -11,7 +11,7 @@ class mainTests extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          title: TabBar(
+          title: const TabBar(
             tabs: [
               Tab(text: 'Διαγωνίσματα'),
               Tab(text: ' Βαθμολογίες'),
@@ -27,6 +27,6 @@ class mainTests extends StatelessWidget {
 }
 
 final List<Widget> _tabs = [
-  TestScreen(),
+  const TestScreen(),
   resultsScreen()
 ];

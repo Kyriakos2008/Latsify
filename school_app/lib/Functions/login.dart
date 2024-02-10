@@ -1,6 +1,6 @@
 import 'package:html/parser.dart' as parser;
-import 'package:requests/requests.dart';
 import 'package:html/dom.dart' as dom;
+import 'package:requests/requests.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 bool passwordCorrect = true;
@@ -12,7 +12,6 @@ String? nameOnly;
 String? nowUsername;
 String? nowPassword;
 
-//var url = 'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php';
 login(username, password) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -50,11 +49,9 @@ login(username, password) async {
         .toList();
 
     // Print the number of elements found
-    if (elements.length > 0) {
-      print('password incorrect');
+    if (elements.isNotEmpty) {
       passwordCorrect = false;
     } else {
-      print('password correct');
       passwordCorrect = true;
 
       dom.Document document2 = parser.parse(res.content());
@@ -95,6 +92,5 @@ login(username, password) async {
     return passwordCorrect;
   } else {
     // Handle the error
-    print('Failed to load the website');
   }
 }
