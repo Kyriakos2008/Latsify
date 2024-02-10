@@ -13,16 +13,15 @@ import 'Screens/mainTest_screen.dart';
 
 final storage = new FlutterSecureStorage();
 
+String currentVersion = "0.1.0";
+
 void main() async {
-  print('app started');
   WidgetsFlutterBinding.ensureInitialized();
-  print('widgets initialized');
   SharedPreferences prefs = await SharedPreferences.getInstance();
   if (prefs.getBool('firstLogin') == false) {
     detailsGet();
     runApp(const MyApp2());
   } else {
-    print('first time');
     runApp(const MyApp());
   }
 }

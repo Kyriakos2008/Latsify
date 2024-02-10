@@ -24,10 +24,8 @@ class _TestScreenState extends State<TestScreen>
   }
 
   void checkBool() async {
-    print('irte dame');
-    print(areTestsLoading);
 
-    Timer.periodic(Duration(milliseconds: 250), (timer) {
+    Timer.periodic(const Duration(milliseconds: 250), (timer) {
       if (areTestsLoading) {
         // The bool has changed to true, perform your action
       } else {
@@ -47,7 +45,6 @@ class _TestScreenState extends State<TestScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print('Building widget with ${tableData.length} items');
     return Scaffold(
       body: Stack(children: [
         Column(
@@ -62,7 +59,7 @@ class _TestScreenState extends State<TestScreen>
                     if (isFutureDate) {
                       Color backgroundColor = Colors.green.withOpacity(0.1);
                       return Card(
-                        margin: EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.all(8.0),
                         child: Container(
                           color: backgroundColor,
                           child: ListTile(
@@ -93,7 +90,7 @@ class _TestScreenState extends State<TestScreen>
                     if (isPastDate) {
                       Color backgroundColor = Colors.red.withOpacity(0.1);
                       return Card(
-                        margin: EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.all(8.0),
                         child: Container(
                           color: backgroundColor,
                           child: ListTile(
@@ -124,7 +121,7 @@ class _TestScreenState extends State<TestScreen>
           ],
         ),
         if (areTestsLoading)
-          Positioned(
+          const Positioned(
             top: 0,
             left: 0,
             right: 0,

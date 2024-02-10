@@ -7,7 +7,6 @@ List<List<String>> tests = [];
 bool areTestsLoading = true;
 
 Future<List<MyTableData>> getTests() async {
-  print('getting tests');
   List<MyTableData> tableData = [];
   var schedule = await Requests.get(
       'http://81.4.170.42/~lyk-latsia-lef/epiloges/dispdiagonismata.php');
@@ -43,7 +42,6 @@ Future<List<MyTableData>> getTests() async {
       });
     });
 
-    print(tableData[0].column1 + tableData[0].column2);
     areTestsLoading = false;
     
     return tableData;
@@ -64,7 +62,7 @@ bool isDateInFuture(String date) {
       DateTime parsedDate = DateTime(year, month, day);
 
       // Compare the parsed date with the current date or if it's today
-      return parsedDate.isAfter(DateTime.now().subtract(Duration(days: 1)));
+      return parsedDate.isAfter(DateTime.now().subtract(const Duration(days: 1)));
     }
     return false;
   } catch (e) {

@@ -19,7 +19,7 @@ class _resultsScreen extends State<resultsScreen> {
   }
 
   void checkBool() async {
-    Timer.periodic(Duration(milliseconds: 250), (timer) {
+    Timer.periodic(const Duration(milliseconds: 250), (timer) {
       if (!areResultsLoading) {
         setState(() {});
         timer.cancel();
@@ -32,7 +32,7 @@ class _resultsScreen extends State<resultsScreen> {
   String grade = '$fourthColumnData /20'; // Append '/20' to the grade
 
   return Card(
-    margin: EdgeInsets.all(8.0),
+    margin: const EdgeInsets.all(8.0),
     child: ListTile(
       title: Text(
         scrapedData[index]['secondColumnData'] ?? '',
@@ -65,7 +65,7 @@ class _resultsScreen extends State<resultsScreen> {
             },
           ),
           if (areResultsLoading)
-            Positioned(
+            const Positioned(
               top: 0,
               left: 0,
               right: 0,

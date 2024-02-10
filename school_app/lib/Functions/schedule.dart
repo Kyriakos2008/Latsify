@@ -8,20 +8,18 @@ import 'dart:convert';
 import 'package:school_app/Screens/main_screen.dart';
 
 List<List<String>> daySchedule = [];
-bool? isUserOk = null;
+bool? isUserOk;
 bool? exists;
 
 userChecker() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var userCheck = await http.get(
-      Uri.parse('https://kyriakos2008.github.io/School-App-Public/Users.json'));
+      Uri.parse('https://raw.githubusercontent.com/Kyriakos2008/Latsify-Public/main/Users.json'));
   var jsonUsers = userCheck.body;
 
   var list =
       jsonDecode(jsonUsers) as List; // Parse the json file into a Dart list
-  print(list);
   String? checkerUsername = prefs.getString('username');
-  print(checkerUsername);
   exists = list.contains(
       checkerUsername); // Use the 'contains' method to check if nowUsername is in the list
   if (exists!) {
@@ -83,16 +81,16 @@ Future<void> schedule() async {
     });
     String dayScheduleJson = jsonEncode(daySchedule);
     prefs.setString("dayScheduleKey", dayScheduleJson);
-    print('done schedule');
+    
     return;
   } else {
-    print('schedule failed');
+    
   }
   
 }
 
 scheduleget() async {
-  print('xekina to prama');
+  
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // Retrieve your JSON string using the getString method with the same key
   String? dayScheduleJson = prefs.getString("dayScheduleKey");
