@@ -10,14 +10,27 @@ import 'Functions/schedule.dart';
 import 'Screens/working_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'Screens/mainTest_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
+
 
 final storage = new FlutterSecureStorage();
+FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
 String currentVersion = "0.1.0";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    
+  options: DefaultFirebaseOptions.currentPlatform,
+);
+  
+  
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  
   if (prefs.getBool('firstLogin') == false) {
     detailsGet();
     runApp(const MyApp2());
@@ -36,6 +49,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
+      
       home: const LoginPage(),
     );
   }
@@ -184,6 +198,9 @@ class _NavBarState extends State<NavBar> {
               ),
             ),
           ),
+          ListTile(
+            title: Text('Created by Kyriakos Nikoletti'),
+          )
         ],
       ),
     );

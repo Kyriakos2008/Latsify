@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "75025842864",
+    "project_id": "latsify-5a586",
+    "storage_bucket": "latsify-5a586.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75025842864:android:4246d690a61d7327a2f175",
+        "android_client_info": {
+          "package_name": "com.example.school_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqwnYNSlVtfLReybNMbRM0fyM4hKgLgUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
