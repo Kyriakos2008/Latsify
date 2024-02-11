@@ -6,6 +6,8 @@ import 'package:school_app/Screens/login_screen.dart';
 import 'package:school_app/Functions/tests.dart';
 import 'package:school_app/Functions/results.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -119,6 +121,7 @@ class _mainScreenState extends State<mainScreen>
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logEvent(name: 'navigated_to_home_page');
     super.build(context);
     return Scaffold(
       body: Stack(children: [
