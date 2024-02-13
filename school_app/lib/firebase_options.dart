@@ -17,15 +17,24 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,39 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBVcldyDQt5jBpWtOsVUciS1eYemG0AStU',
-    appId: '1:75025842864:web:5cdc499c0e65418fa2f175',
-    messagingSenderId: '75025842864',
-    projectId: 'latsify-5a586',
-    authDomain: 'latsify-5a586.firebaseapp.com',
-    storageBucket: 'latsify-5a586.appspot.com',
-    measurementId: 'G-31N2NM69RH',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBqwnYNSlVtfLReybNMbRM0fyM4hKgLgUo',
+    apiKey: 'AIzaSyBMNX-Lq2_RIH2vsTOvt2iZ4Kh7gLBmC0k',
     appId: '1:75025842864:android:4246d690a61d7327a2f175',
     messagingSenderId: '75025842864',
     projectId: 'latsify-5a586',
     storageBucket: 'latsify-5a586.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA02ZDSKQA4e3QzuySPd9oyPKr4QRs0kA8',
-    appId: '1:75025842864:ios:dfd909e64c104a5aa2f175',
-    messagingSenderId: '75025842864',
-    projectId: 'latsify-5a586',
-    storageBucket: 'latsify-5a586.appspot.com',
-    iosBundleId: 'com.example.schoolApp',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA02ZDSKQA4e3QzuySPd9oyPKr4QRs0kA8',
-    appId: '1:75025842864:ios:dfd909e64c104a5aa2f175',
-    messagingSenderId: '75025842864',
-    projectId: 'latsify-5a586',
-    storageBucket: 'latsify-5a586.appspot.com',
-    iosBundleId: 'com.example.schoolApp',
   );
 }
