@@ -1,4 +1,3 @@
-import 'package:http/http.dart' as http;
 import 'package:html/parser.dart' as parser;
 import 'package:requests/requests.dart';
 import 'package:html/dom.dart' as dom;
@@ -11,26 +10,6 @@ List<List<String>> daySchedule = [];
 bool? isUserOk;
 bool? exists;
 
-userChecker() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var userCheck = await http.get(
-      Uri.parse('https://raw.githubusercontent.com/Kyriakos2008/Latsify-Public/main/Users.json'));
-  var jsonUsers = userCheck.body;
-
-  var list =
-      jsonDecode(jsonUsers) as List; // Parse the json file into a Dart list
-  String? checkerUsername = prefs.getString('username');
-  exists = list.contains(
-      checkerUsername); // Use the 'contains' method to check if nowUsername is in the list
-  if (exists!) {
-    // Do something if the username  exists in the list
-    return exists;
-  } else {
-    // Do something else if the username does not exist in the list
-    await logingOut();
-    return exists;
-  }
-}
 
 logingOut() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
