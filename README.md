@@ -48,6 +48,6 @@ Technologies used in the project:
 
 
 
-<h2>Want to contact me?</h2>
+<h2>💬 Want to contact me?</h2>
 
 Find me on instagram: @nikoletti.k
