@@ -2,12 +2,10 @@ import 'dart:convert';
 import 'package:school_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/schedule.dart';
-import 'package:school_app/Screens/login_screen.dart';
 import 'package:school_app/Functions/tests.dart';
 import 'package:school_app/Functions/results.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class mainScreen extends StatefulWidget {
   const mainScreen({super.key});
@@ -41,7 +39,7 @@ class _mainScreenState extends State<mainScreen>
     } else {
       today -= 1; // Subtract 1 because PageView index starts from 0
     }
-    _userchecker();
+    _scheduleVerify(); // dameeeeeeeeeee valis to _scheduleverify
     updateChecker();
   }
 
@@ -58,40 +56,12 @@ class _mainScreenState extends State<mainScreen>
     _getFirstData();
   }
 
-  _userchecker() async {
-    if (await userChecker() == false) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Icon(Icons.warning),
-            content: const Text(
-                'Δεν πληροίτε τις προϋποθέσεις για χρήση αυτής της εφαρμογής.'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-      exists = null;
-    } else {
-      _scheduleVerify();
-    }
-  }
+  
 
   updateChecker() async {
     
     var latestVersionRaw = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/Kyriakos2008/Latsify-Public/main/latestVersion.json'));
+        'https://raw.githubusercontent.com/Kyriakos2008/Latsify/main/latestVersion.json'));
     var latestVersionVar = latestVersionRaw.body;
 
     var latestVersion = jsonDecode(latestVersionVar) as String;

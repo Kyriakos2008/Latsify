@@ -44,38 +44,14 @@ class _LoginPageState extends State<LoginPage> {
         if (prefs.getString('username') == null) {
           prefs.setString('username', '${_usernameController.text}');
           prefs.setString('password', '${_passwordController.text}');
-
-          if (await userChecker()) {
-            await schedule();
+          await schedule();
 
             prefs.setBool('firstLogin', false);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const MyApp2()),
             );
-          } else {
-            _showprogress = false;
-            setState(() {});
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Icon(Icons.warning),
-                  content: const Text(
-                      'Δεν πληροίτε τις προϋποθέσεις για χρήση αυτής της εφαρμογής.'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Close the dialog
-                      },
-                      child: const Text('OK'),
-                    ),
-                  ],
-                );
-              },
-            );
-            exists = null;
-          }
+          
         }
       } else {
         _showprogress = false;
