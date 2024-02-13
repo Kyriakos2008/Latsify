@@ -73,13 +73,10 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(8.0),
                 child: Text('1: Ο δημιουργός αυτής της εφαρμογής δεν είναι υπεύθυνος για τυχόν παραπληροφόρηση που εμφανίζεται κατά τη χρήση.'),
               ),
+              
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text('2: Χρησιμοποιώντας αυτήν την εφαρμογή συμφωνείτε να μοιραστείτε τον μοναδικό αριθμό εγγραφής σας.'),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text('3: Αυτή η εφαρμογή χρησιμοποιεί google analytics.'),
+                child: Text('2: Αυτή η εφαρμογή χρησιμοποιεί google analytics.'),
               )
               ],
           ),

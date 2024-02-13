@@ -19,7 +19,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 final storage = new FlutterSecureStorage();
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-String currentVersion = "0.1.0";
+String currentVersion = "0.1.1";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
