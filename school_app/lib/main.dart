@@ -19,7 +19,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 final storage = new FlutterSecureStorage();
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-String currentVersion = "0.1.2";
+String currentVersion = "0.1.3";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -200,6 +200,9 @@ class _NavBarState extends State<NavBar> {
           ),
           ListTile(
             title: Text('Created by Kyriakos Nikoletti'),
+          ),
+          ListTile(
+            title: Text(currentVersion),
           )
         ],
       ),
