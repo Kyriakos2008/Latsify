@@ -1,4 +1,4 @@
-package com.example.school_app
+package com.latsify.android
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.school_app">
+    package="com.latsify.android">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Latsify"
