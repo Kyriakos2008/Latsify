@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:school_app/Functions/login.dart';
-import 'package:school_app/Functions/results.dart';
-import 'package:school_app/Functions/tests.dart';
 import 'package:school_app/Screens/main_screen.dart';
+import 'package:school_app/Screens/settings_screen.dart';
 import 'Screens/login_screen.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Functions/schedule.dart';
 import 'Screens/working_screen.dart';
@@ -15,22 +14,27 @@ import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 
-
-final storage = new FlutterSecureStorage();
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-String currentVersion = "0.1.3";
+String currentVersion = "1.0.1+1";
+Color? selectedColor;
+int? selectedColorInt;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    
-  options: DefaultFirebaseOptions.currentPlatform,
-);
-  
-  
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  
+
+  selectedColorInt = await prefs.getInt('mainColor');
+  if (selectedColorInt == null) {
+    selectedColor = Colors.blue;
+  } else {
+    selectedColor = Color(selectedColorInt!);
+  }
+
   if (prefs.getBool('firstLogin') == false) {
     detailsGet();
     runApp(const MyApp2());
@@ -41,13 +45,26 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Σύνδεση',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        useMaterial3: true,
+        // Define the default brightness and colors.
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: selectedColor!,
+          brightness: Brightness.light,
+        ),
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        // Define the default brightness and colors.
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: selectedColor!,
+          brightness: Brightness.dark,
+        ),
+      ),
       themeMode: ThemeMode.system,
       home: const LoginPage(),
     );
@@ -61,8 +78,22 @@ class MyApp2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Σύνδεση',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
+        useMaterial3: true,
+        // Define the default brightness and colors.
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: selectedColor!,
+          brightness: Brightness.light,
+        ),
+      ),
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        // Define the default brightness and colors.
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: selectedColor!,
+          brightness: Brightness.dark,
+        ),
+      ),
       themeMode: ThemeMode.system,
       home: NavBar(),
     );
@@ -104,17 +135,7 @@ class _NavBarState extends State<NavBar> {
     });
   }
 
-  void logOut() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    daySchedule.clear();
-    tests.clear();
-    scrapedData.clear();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
-    );
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +178,7 @@ class _NavBarState extends State<NavBar> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: selectedColor!,
         onTap: _onItemTapped,
       ),
     );
@@ -181,28 +202,29 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             title: Text('Υπεύθηνος καθηγητής: $cell4'),
           ),
+          
           ListTile(
             title: TextButton(
               onPressed: () {
-                logOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const settingsPage()),
+                );
               },
               child: Row(
                 children: [
-                  Text('Αποσύνδεση'),
+                  Text('Ρυθμίσεις'),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                    child: Icon(Icons.logout),
-                  ),
+                    padding: const EdgeInsets.fromLTRB(9, 0, 0, 0),
+                    child: Icon(Icons.settings),
+                  )
                 ],
               ),
             ),
           ),
           ListTile(
-            title: Text('Created by Kyriakos Nikoletti'),
-          ),
-          ListTile(
             title: Text(currentVersion),
-          )
+          ),
         ],
       ),
     );
