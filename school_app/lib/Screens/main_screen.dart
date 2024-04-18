@@ -1,10 +1,7 @@
-import 'dart:convert';
-import 'package:school_app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:school_app/Functions/schedule.dart';
 import 'package:school_app/Functions/tests.dart';
 import 'package:school_app/Functions/results.dart';
-import 'package:http/http.dart' as http;
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 class mainScreen extends StatefulWidget {
@@ -40,7 +37,6 @@ class _mainScreenState extends State<mainScreen>
       today -= 1; // Subtract 1 because PageView index starts from 0
     }
     _scheduleVerify(); // dameeeeeeeeeee valis to _scheduleverify
-    updateChecker();
   }
 
   void _getFirstData() async {
@@ -58,36 +54,7 @@ class _mainScreenState extends State<mainScreen>
 
   
 
-  updateChecker() async {
-    
-    var latestVersionRaw = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/Kyriakos2008/Latsify/main/latestVersion.json'));
-    var latestVersionVar = latestVersionRaw.body;
 
-    var latestVersion = jsonDecode(latestVersionVar) as String;
-
-
-    if (currentVersion != latestVersion) {
-      showDialog(
-      context: context,
-      builder: (BuildContext Versioncontext) {
-        return AlertDialog(
-          title: const Icon(Icons.info),
-          content: const Text('Μια νέα έκδοση είναι διαθέσιμη. Συνιστούμε την ενημέρωση της εφαρμογής για την καλύτερη εμπειρία.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(Versioncontext).pop(); // This will close the dialog
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-    } else {
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +87,6 @@ class _mainScreenState extends State<mainScreen>
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: parsedDaySchedule?[index].length ?? 0,
                     itemBuilder: (context, subjectIndex) {
                       return Card(

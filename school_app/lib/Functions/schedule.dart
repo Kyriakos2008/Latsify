@@ -5,11 +5,11 @@ import 'package:school_app/Functions/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:school_app/Screens/main_screen.dart';
+import 'package:school_app/replacements.dart';
 
 List<List<String>> daySchedule = [];
 bool? isUserOk;
 bool? exists;
-
 
 logingOut() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -60,16 +60,12 @@ Future<void> schedule() async {
     });
     String dayScheduleJson = jsonEncode(daySchedule);
     prefs.setString("dayScheduleKey", dayScheduleJson);
-    
+
     return;
-  } else {
-    
-  }
-  
+  } else {}
 }
 
 scheduleget() async {
-  
   SharedPreferences prefs = await SharedPreferences.getInstance();
   // Retrieve your JSON string using the getString method with the same key
   String? dayScheduleJson = prefs.getString("dayScheduleKey");
@@ -110,37 +106,7 @@ class SchoolSubject {
       this.roomNumber, this.className, this.teacherName, this.classNumber);
 }
 
-Map<String, String> replacements = {
-  'Αγγ (Α)': 'Αγγλικά',
-  'Τεχνλ (Α)': 'Τεχνολογία',
-  'Γυμν-Α (Α)': 'Γυμναστική',
-  'ΦΥΣ_προσ': 'Φυσική',
-  'Φυσ (Α)': 'Φυσική',
-  'ΜΑΘ_προσ': 'Μαθηματικά',
-  'Αρχ (Α)': 'Αρχαία',
-  'Νέα (Α)': 'Νέα Ελληνικά',
-  'Οικον (Α)': 'Οικονομικά',
-  'ΟΙΚ_προσ': 'Οικονομικά',
-  'Θρη (α)': 'Θρησκευτικά',
-  'Γαλλ (Α)': 'Γαλλικά',
-  'Μουσ (Α)': 'Μουσική',
-  'Χημ (Α)': 'Χημία',
-  'Ιστ (Α)': 'Ιστορία',
-  'Πληρ (Α)': 'Πληροφορική',
-  'Τέχνη (Α)': 'Τέχνη',
-  'Βιολ (Α)': 'Βιολογία',
-  'Μαθ (Α)': 'Μαθηματικά',
-  'ΙΣΤ_προσ': 'Ιστορία',
-  'ΑΡΧ_προσ': 'Αρχαία',
-  'ΓΥΜ-Κ': 'Γυμναστική',
-  'ΑΓΓ_προσ': 'Αγγλικά',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // '': '',
-  // Add more replacements as needed
-};
+
 
 List<List<SchoolSubject>> parseSubjects(List<List<String>> daySchedule) {
   return daySchedule.map((daySubjects) {

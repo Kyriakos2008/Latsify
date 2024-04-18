@@ -1,7 +1,7 @@
 import 'package:html/parser.dart' as parser;
 import 'package:requests/requests.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:school_app/Functions/schedule.dart';
+import 'package:school_app/replacements.dart';
 
 List<List<String>> tests = [];
 bool areTestsLoading = true;
