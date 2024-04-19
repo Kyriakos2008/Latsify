@@ -122,7 +122,11 @@ class _settingsPageState extends State<settingsPage> {
                   ),
                 )
               ],
-            )
+            ),
+            SettingsSection(title: Text('Σχετικά με την εφαρμογή'),
+            tiles: [
+              SettingsTile(title: Text('Εκδοση: $currentVersion'))
+            ],)
           ],
         ));
   }
