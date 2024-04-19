@@ -16,7 +16,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-String currentVersion = "1.0.1+1";
+String currentVersion = "1.0.1+3";
 Color? selectedColor;
 int? selectedColorInt;
 
@@ -221,9 +221,6 @@ class _NavBarState extends State<NavBar> {
                 ],
               ),
             ),
-          ),
-          ListTile(
-            title: Text(currentVersion),
           ),
         ],
       ),
