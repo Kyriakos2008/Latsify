@@ -1,6 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.latsify.android">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <queries>
+    <!-- to opens https URLs -->
+    <intent>
+        <action android:name="android.intent.action.VIEW" />
+        <data android:scheme="http" />
+    </intent>
+</queries>
    <application
         android:label="Latsify"
         android:name="${applicationName}"

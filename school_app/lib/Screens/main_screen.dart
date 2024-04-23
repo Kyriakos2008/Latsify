@@ -52,10 +52,6 @@ class _mainScreenState extends State<mainScreen>
     _getFirstData();
   }
 
-  
-
-
-
   @override
   Widget build(BuildContext context) {
     FirebaseAnalytics.instance.logEvent(name: 'navigated_to_home_page');

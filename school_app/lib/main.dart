@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:school_app/Functions/login.dart';
+import 'package:school_app/Screens/announcements_screen.dart';
 import 'package:school_app/Screens/main_screen.dart';
 import 'package:school_app/Screens/settings_screen.dart';
 import 'Screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Functions/schedule.dart';
-import 'Screens/working_screen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'Screens/mainTest_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-String currentVersion = "1.0.1+3";
+String currentVersion = "1.1.1+6";
 Color? selectedColor;
 int? selectedColorInt;
 
@@ -112,7 +111,7 @@ class _NavBarState extends State<NavBar> {
   static List<Widget> _widgetOptions = <Widget>[
     mainScreen(),
     mainTests(),
-    workingOnIt()
+    AnnouncementsScreen()
   ];
 
   @override
@@ -134,8 +133,6 @@ class _NavBarState extends State<NavBar> {
           duration: Duration(milliseconds: 250), curve: Curves.easeOut);
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +199,6 @@ class _NavBarState extends State<NavBar> {
           ListTile(
             title: Text('Υπεύθηνος καθηγητής: $cell4'),
           ),
-          
           ListTile(
             title: TextButton(
               onPressed: () {
