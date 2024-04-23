@@ -51,9 +51,10 @@ login(username, password) async {
     // Print the number of elements found
     if (elements.isNotEmpty) {
       passwordCorrect = false;
+      print('you are NOT signed in');
     } else {
       passwordCorrect = true;
-
+      print('you are signed in');
       dom.Document document2 = parser.parse(res.content());
 
       dom.Element? tableElement = document2.querySelector('.myTable');
@@ -85,9 +86,6 @@ login(username, password) async {
           }
         }
       }
-
-      
-
     }
     return passwordCorrect;
   } else {
