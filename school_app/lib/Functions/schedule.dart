@@ -23,7 +23,7 @@ Future<void> schedule() async {
 
   daySchedule = [];
   var schedule = await Requests.get(
-      'http://81.4.170.42/~lyk-latsia-lef/epiloges/mathitisp2.php');
+      'https://admin.lyk-latsia-lef.schools.ac.cy//epiloges/mathitisp2.php');
 
   if (schedule.statusCode == 200) {
     dom.Document document = parser.parse(schedule.body);

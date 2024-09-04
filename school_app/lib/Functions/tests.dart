@@ -9,7 +9,7 @@ bool areTestsLoading = true;
 Future<List<MyTableData>> getTests() async {
   List<MyTableData> tableData = [];
   var schedule = await Requests.get(
-      'http://81.4.170.42/~lyk-latsia-lef/epiloges/dispdiagonismata.php');
+      'https://admin.lyk-latsia-lef.schools.ac.cy//epiloges/dispdiagonismata.php');
 
   if (schedule.statusCode == 200) {
     dom.Document document = parser.parse(schedule.body);

@@ -11,7 +11,7 @@ class Announcement {
 
 Future<List<Announcement>> fetchAnnouncements() async {
   final response = await Requests.get(
-      "http://81.4.170.42/~lyk-latsia-lef/epiloges/indexstudent.php");
+      "https://admin.lyk-latsia-lef.schools.ac.cy//epiloges/indexstudent.php");
 
   if (response.statusCode == 200) {
     final document = parser.parse(response.body);
@@ -30,7 +30,7 @@ Future<List<Announcement>> fetchAnnouncements() async {
             var link = cells[2].querySelector('a')?.attributes['href'] ?? '';
             // Check if the link is relative, if so, prepend the base URL
             if (!link.startsWith("http")) {
-              link = "http://81.4.170.42/~lyk-latsia-lef/epiloges/$link";
+              link = "https://admin.lyk-latsia-lef.schools.ac.cy//epiloges/$link";
             }
             announcements.add(Announcement(title: title, link: link));
           }

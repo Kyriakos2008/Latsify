@@ -7,7 +7,7 @@ bool areResultsLoading = true;
 
 Future<void> fetchresultsMain() async {
   final response = await Requests.get(
-      'http://81.4.170.42/~lyk-latsia-lef/epiloges/btetr.php');
+      'https://admin.lyk-latsia-lef.schools.ac.cy//epiloges/btetr.php');
   //print(response.body);
 
   if (response.statusCode == 200) {

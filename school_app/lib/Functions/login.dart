@@ -31,7 +31,7 @@ login(username, password) async {
   };
 
   var res = await Requests.post(
-    'http://81.4.170.42/~lyk-latsia-lef/epiloges/dilosichklogin.php',
+    'https://admin.lyk-latsia-lef.schools.ac.cy//epiloges/dilosichklogin.php',
     body: form,
   );
   //print(res.body);
