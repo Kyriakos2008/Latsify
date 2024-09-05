@@ -15,7 +15,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-String currentVersion = "1.1.4+9";
+
 Color? selectedColor;
 int? selectedColorInt;
 
@@ -118,6 +118,7 @@ class _NavBarState extends State<NavBar> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    refreshDetails();
   }
 
   @override
@@ -132,6 +133,18 @@ class _NavBarState extends State<NavBar> {
       _pageController.animateToPage(index,
           duration: Duration(milliseconds: 250), curve: Curves.easeOut);
     });
+  }
+
+  // void _refreshDetails() {
+  //   refreshDetails();
+  // }
+
+  Future<void> refreshDetails() async {
+    while (isScheduleLoading) {
+      await Future.delayed(Duration(milliseconds: 500));
+    }
+    setState(() {});
+    print('ekaman refresh ta tzina');
   }
 
   @override

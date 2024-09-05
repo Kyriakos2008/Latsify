@@ -3,11 +3,13 @@ import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../main.dart';
-
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:school_app/Functions/results.dart';
 import 'package:school_app/Functions/tests.dart';
 import '../Functions/schedule.dart';
 import '../Screens/login_screen.dart';
+
+String? version;
 
 class settingsPage extends StatefulWidget {
   const settingsPage({super.key});
@@ -20,6 +22,13 @@ class _settingsPageState extends State<settingsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getVersion();
+  }
+
+  getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    version = packageInfo.version + "+" + packageInfo.buildNumber;
+    setState(() {});
   }
 
   void getColor() async {
@@ -123,10 +132,10 @@ class _settingsPageState extends State<settingsPage> {
                 )
               ],
             ),
-            SettingsSection(title: Text('Σχετικά με την εφαρμογή'),
-            tiles: [
-              SettingsTile(title: Text('Εκδοση: $currentVersion'))
-            ],)
+            SettingsSection(
+              title: Text('Σχετικά με την εφαρμογή'),
+              tiles: [SettingsTile(title: Text('Εκδοση: $version'))],
+            )
           ],
         ));
   }
