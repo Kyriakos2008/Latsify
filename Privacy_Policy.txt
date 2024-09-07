@@ -1,5 +1,7 @@
 1: Ο δημιουργός αυτής της εφαρμογής δεν είναι υπεύθυνος για τυχόν παραπληροφόρηση που εμφανίζεται κατά τη χρήση.
 2: Αυτή η εφαρμογή χρησιμοποιεί google analytics.
+3: Ο δημιουργός αυτής της εφαρμογής δεν έχει πρόσβαση στα προσωπικά σας δεδομένα
 
 1: The creator of this app is not responsible for any misinformation that appears while using it.
 2: This app uses google analytics.
+3: The creator of this app does not have access to your personal data
