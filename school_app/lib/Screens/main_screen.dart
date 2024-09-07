@@ -66,18 +66,44 @@ class _mainScreenState extends State<mainScreen>
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    [
-                      'Δευτέρα',
-                      'Τρίτη',
-                      'Τετάρτη',
-                      'Πέμπτη',
-                      'Παρασκευή'
-                    ][index],
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).hintColor),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .center, // To center the text and arrows
+                    children: [
+                      // If it's not the first item, add a left arrow
+                      if (index > 0)
+                        Icon(
+                          Icons.arrow_left_rounded, // Left arrow icon
+                          size: 50,
+                          color: Theme.of(context).hintColor,
+                        ),
+                      const SizedBox(
+                          width: 8), // Spacing between the icon and text
+                      Text(
+                        [
+                          'Δευτέρα',
+                          'Τρίτη',
+                          'Τετάρτη',
+                          'Πέμπτη',
+                          'Παρασκευή'
+                        ][index],
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).hintColor,
+                        ),
+                      ),
+                      const SizedBox(
+                          width: 8), // Spacing between the text and icon
+                      // If it's not the last item, add a right arrow
+                      if (index <
+                          4) // 4 because there are 5 days, and index is 0-based
+                        Icon(
+                          Icons.arrow_right_rounded, // Right arrow icon
+                          size: 50,
+                          color: Theme.of(context).hintColor,
+                        ),
+                    ],
                   ),
                 ),
                 Expanded(
