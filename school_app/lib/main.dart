@@ -1,5 +1,5 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:school_app/Functions/login.dart';
 import 'package:school_app/Screens/announcements_screen.dart';
 import 'package:school_app/Screens/main_screen.dart';
@@ -15,9 +15,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 
 FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
-
 Color? selectedColor;
 int? selectedColorInt;
+String? greetingTxt;
+int? currentHour;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,12 +34,37 @@ void main() async {
   } else {
     selectedColor = Color(selectedColorInt!);
   }
+  await getGreetings();
 
   if (prefs.getBool('firstLogin') == false) {
     detailsGet();
     runApp(const MyApp2());
   } else {
     runApp(const MyApp());
+  }
+}
+
+getGreetings() async {
+  final timeNow = DateTime.now();
+  final currentHour = timeNow.hour;
+  if (4 <= currentHour && currentHour <= 11) {
+    greetingTxt = 'Καλημέρα';
+  } else if (12 <= currentHour && currentHour <= 15) {
+    greetingTxt = 'Γειά σου';
+  } else if (16 <= currentHour && currentHour <= 19) {
+    greetingTxt = 'Καλό απόγευμα';
+  } else {
+    greetingTxt = 'Καλό βράδυ';
+  }
+
+  if ((22 <= currentHour && currentHour <= 23) ||
+      (0 <= currentHour && currentHour <= 2)) {
+    Random random = Random();
+    int randomNumber = random.nextInt(100);
+    //dame poukato vallis to percentage pou thelis na eshi probability
+    if (randomNumber < 10) {
+      greetingTxt = 'Κοιμήσου';
+    }
   }
 }
 
@@ -153,7 +179,7 @@ class _NavBarState extends State<NavBar> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         title: Text(
-          'Γειά σου, $nameOnly',
+          '$greetingTxt, $nameOnly',
           style: TextStyle(fontSize: 25),
         ),
       ),
