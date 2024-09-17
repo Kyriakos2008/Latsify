@@ -106,6 +106,8 @@ class SchoolSubject {
       this.roomNumber, this.className, this.teacherName, this.classNumber);
 }
 
+
+
 List<List<SchoolSubject>> parseSubjects(List<List<String>> daySchedule) {
   return daySchedule.map((daySubjects) {
     return daySubjects.map((subject) {
@@ -114,8 +116,7 @@ List<List<SchoolSubject>> parseSubjects(List<List<String>> daySchedule) {
       var teacherName = nameAndNumber[0].trim();
       var classNumber = nameAndNumber[1].substring(
           0, nameAndNumber[1].length - 2); // remove last two characters
-      var roomNumber = parts[1]; // Now using parts[1] for roomNumber
-      var className = parts[0];  // Now using parts[0] for className
+      var className = parts[1];
 
       // Check if the className is in the replacements map
       if (replacements.containsKey(className)) {
@@ -123,7 +124,7 @@ List<List<SchoolSubject>> parseSubjects(List<List<String>> daySchedule) {
         className = replacements[className]!;
       }
 
-      return SchoolSubject(roomNumber, className, teacherName, classNumber);
+      return SchoolSubject(parts[0], className, teacherName, classNumber);
     }).toList();
   }).toList();
 }
