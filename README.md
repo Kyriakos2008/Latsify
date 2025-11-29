@@ -22,17 +22,6 @@ Here're some of the project's best features:
 *   Easy to understand
 *   Everything you need in one place
 
-<h2>🛠️ Installation Steps:</h2>
-
-<p>1. Download the latest .apk release.</p>
-
-<p>2. Install the apk.</p>
-
-<p>3. Enjoy!</p>
-
-
-
-  
   
 <h2>💻 Built with</h2>
 
@@ -41,11 +30,6 @@ Technologies used in the project:
 *   Flutter
 *   Dart
 *   Google Analytics
-
-<h2>💶 Pricing:</h2>
-
-*   FREE!!
-
 
 
 <h2>💬 Want to contact me?</h2>
